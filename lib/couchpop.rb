@@ -31,7 +31,7 @@ class Couchpop
       
       Dir['**/*.*'].each do |path|
         doc = database.get(app_name)
-        mimetype = `file -Ib #{path}`.gsub(/\n/,"")
+        mimetype = `file -ib #{path}`.gsub(/\n/,"")
         puts "#{path}"
         `curl -s -X PUT http://localhost:5984/#{database_name}/#{app_name}/#{path}?rev=#{doc['_rev']} --data-binary @#{path} -H "Content-Type: #{mimetype}"`
       end
